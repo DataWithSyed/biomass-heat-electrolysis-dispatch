@@ -1,0 +1,52 @@
+{
+  "attribution": "Day-ahead prices (DE-LU): Energy-Charts.info (Fraunhofer ISE), CC BY 4.0; underlying source Bundesnetzagentur | SMARD.de.",
+  "price_start": "2025-10-30 22:00:00+00:00",
+  "price_end": "2026-10-30 22:00:00+00:00",
+  "n_hours": 8761,
+  "mean_price_eur_mwh": 110.82610775025681,
+  "median_price_eur_mwh": 109.1,
+  "storage_h_default": 24.0,
+  "capacity_factor_default": 1.5,
+  "threshold_eur_mwh": 109.1,
+  "design_points": {
+    "oxy_partial": {
+      "config": "oxy_partial",
+      "heat_mw": 10.0,
+      "t_process_c": 1000.0,
+      "el_mw": 18.958501775619812,
+      "el_electrolyser_mw": 18.283389501778586,
+      "el_fixed_mw": 0.6751122738412236,
+      "h2_need_kg_h": 332.4252636687016,
+      "o2_need_kg_h": 1202.5363871223549,
+      "h2_kg_per_mwh": 33.24252636687016,
+      "electricity_mwh_per_mwh": 1.8958501775619812,
+      "specific_energy_kwh_per_kg": 55.0
+    },
+    "oxy_full": {
+      "config": "oxy_full",
+      "heat_mw": 10.0,
+      "t_process_c": 1000.0,
+      "el_mw": 24.191977703371197,
+      "el_electrolyser_mw": 23.753431203291836,
+      "el_fixed_mw": 0.43854650007936063,
+      "h2_need_kg_h": 431.88056733257883,
+      "o2_need_kg_h": 781.1561783494046,
+      "h2_kg_per_mwh": 43.18805673325788,
+      "electricity_mwh_per_mwh": 2.41919777033712,
+      "specific_energy_kwh_per_kg": 55.0
+    },
+    "oxy_none_elec": {
+      "config": "oxy_none_elec",
+      "heat_mw": 10.0,
+      "t_process_c": 1000.0,
+      "el_mw": 8.882065259530762,
+      "el_electrolyser_mw": 8.822471729558867,
+      "el_fixed_mw": 0.05959352997189608,
+      "h2_need_kg_h": 160.4085769010703,
+      "o2_need_kg_h": 1273.0043759128098,
+      "h2_kg_per_mwh": 16.04085769010703,
+      "electricity_mwh_per_mwh": 0.8882065259530763,
+      "specific_energy_kwh_per_kg": 55.0
+    }
+  }
+}
