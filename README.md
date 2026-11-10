@@ -47,7 +47,7 @@ no arbitrage headroom (O3 saves &lt; 1 % vs O1); oversizing is the real lever.
 | oxy_partial | 210.1 | 185.7 | **162.3** | 165.8 | 77 % | 85.7 |
 | oxy_full | 268.1 | 236.4 | **206.1** | 210.5 | 77 % | 85.3 |
 
-O4 recovers **93–98 %** of the O3 saving. Volume-weighted purchase price falls from the
+O4 recovers **about 93 %** of the O3 saving (92.8 % for each of the three configs, from `results/dispatch_summary.csv`). Volume-weighted purchase price falls from the
 time-weighted mean 110.8 to ~85 EUR/MWh_el under O3.
 
 **Oversizing (oxy_full, O3, 24 h storage):**
