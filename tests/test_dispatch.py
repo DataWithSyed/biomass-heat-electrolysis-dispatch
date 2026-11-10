@@ -106,3 +106,25 @@ def test_fast_settle_matches_plant_simulate_o1(prices, dp_full):
                                   cap, h2, o2, use_plant_simulate=True), cap)
     assert abs(fast["eur_per_mwh_heat"] - slow["eur_per_mwh_heat"]) / max(slow["eur_per_mwh_heat"], 1) < 0.02
     assert abs(fast["electrolyser_mwh"] - slow["electrolyser_mwh"]) < 0.5
+
+
+def test_o4_carries_soc_between_windows(prices, dp_full, monkeypatch):
+    """O4 warm-starts each window from the SOC integrated on the committed hours."""
+    import bhed.strategies as strat
+
+    calls = []
+    real = strat._lp_schedule
+
+    def spy(*args, **kwargs):
+        calls.append((kwargs.get("s0_h_frac", 0.5), kwargs.get("s0_o_frac", 0.5)))
+        return real(*args, **kwargs)
+
+    monkeypatch.setattr(strat, "_lp_schedule", spy)
+    cap = dp_full.el_electrolyser_mw * 1e6 * 1.5
+    h2, o2 = storage_hours_to_mol(dp_full, 24.0)
+    strat.RollingDayAhead().schedule(prices.values, dp_full, cap, h2, o2)
+    assert len(calls) >= 3
+    assert calls[0] == (0.5, 0.5)
+    # later windows start from the carried SOC, not a reset to 50 %
+    assert any(abs(h - 0.5) > 1e-3 for h, _ in calls[1:])
+    assert all(0.0 <= h <= 1.0 and 0.0 <= o <= 1.0 for h, o in calls)

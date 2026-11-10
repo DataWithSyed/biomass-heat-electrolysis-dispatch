@@ -14,7 +14,7 @@ dependency `biomass-heat-plant-model`.
 | A-D7 | Prices | Hourly DE-LU day-ahead, Energy-Charts API (CC BY 4.0; source SMARD.de) | ~365 days ending 2026-10-30 in the committed cache; script re-fetches |
 | A-D8 | O2 threshold (O2 strategy) | Median of the price series | Simple heuristic, not optimised |
 | A-D9 | O3 LP | Perfect-foresight HiGHS LP on electrolyser MW; free H2/O2 venting; hard demand via storage | Upper bound; ignores forecast error and imbalance |
-| A-D10 | O4 rolling | 48 h look-ahead, commit 24 h; each window starts at 50 % SOC | No persistent SOC warm-start (v0.1 simplification) |
+| A-D10 | O4 rolling | 48 h look-ahead, commit 24 h; first window starts at 50 % SOC, every later window starts from the H2/O2 SOC integrated over the previous 24 committed hours | SOC is carried between windows (`RollingDayAhead.schedule`); terminal SOC of each 48 h LP is free, so the look-ahead can end a window with low storage |
 | A-D11 | Fixed plant load | Compression + blower (+ ASU if any) runs with heat duty; not shifted | Only electrolyser power is dispatchable |
 | A-D12 | Scope | Electricity cost only (EUR/MWh_heat); no biomass fuel cost, no CAPEX, no O2 sales | LCOH follows in `biomass-heat-lcoh` |
 
@@ -22,6 +22,6 @@ dependency `biomass-heat-plant-model`.
 
 * Constant heat demand; no part-load gasifier/methanation efficiency curve.
 * Storage is energy-only (no pressure, no compressor schedule).
-* O4 does not carry SOC between windows.
+* O4 carries SOC between windows, but each 48 h LP has a free terminal SOC (no end-of-horizon storage value), so it can under-fill storage before an expensive day beyond the look-ahead.
 * Negative prices: electrolyser is happy to run (no curtailment constraint beyond capacity).
 * Cached prices are redistributed under CC BY 4.0 with attribution; re-fetch for newer days.
